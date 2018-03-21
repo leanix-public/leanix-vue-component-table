@@ -14,6 +14,9 @@ const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
 const devWebpackConfig = merge(baseWebpackConfig, {
+  entry: {
+    app: './docs/src/main'
+  },
   module: {
     rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap, usePostCSS: true })
   },
@@ -45,6 +48,17 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     }
   },
   plugins: [
+    /*
+    function () {
+      this.plugin('done', stats => {
+        if (stats.compilation.errors && stats.compilation.errors.length)
+          {
+            console.log(stats.compilation.errors)
+            process.exit(1)
+          }
+      })
+    },
+    */
     new webpack.DefinePlugin({
       'process.env': require('../config/dev.env')
     }),
