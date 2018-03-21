@@ -30,83 +30,83 @@
 </template>
 
 <script>
-  export default {
-    props: {
-      pagination: {
-        type: Object,
-        default: () => ({})
+export default {
+  props: {
+    pagination: {
+      type: Object,
+      default: () => ({})
+    }
+  },
+
+  computed: {
+    pages () {
+      return this.pagination.totalPages === undefined
+        ? []
+        : this.pageLinks()
+    },
+
+    hasFirst () {
+      return this.pagination.currentPage >= 4 || this.pagination.totalPages < 10
+    },
+
+    hasLast () {
+      return this.pagination.currentPage <= this.pagination.totalPages - 3 || this.pagination.totalPages < 10
+    },
+
+    hasFirstEllipsis () {
+      return this.pagination.currentPage >= 4 && this.pagination.totalPages >= 10
+    },
+
+    hasLastEllipsis () {
+      return this.pagination.currentPage <= this.pagination.totalPages - 3 && this.pagination.totalPages >= 10
+    },
+
+    shouldShowPagination () {
+      if (this.pagination.totalPages === undefined) {
+        return false
       }
+      if (this.pagination.count === 0) {
+        return false
+      }
+      return this.pagination.totalPages > 1
+    }
+  },
+
+  methods: {
+    isActive (page) {
+      const currentPage = this.pagination.currentPage || 1
+
+      return currentPage === page
     },
 
-    computed: {
-        pages() {
-          return this.pagination.totalPages === undefined
-              ? []
-              : this.pageLinks()
-        },
-
-        hasFirst() {
-          return this.pagination.currentPage >= 4 || this.pagination.totalPages < 10
-        },
-
-        hasLast() {
-          return this.pagination.currentPage <= this.pagination.totalPages - 3 || this.pagination.totalPages < 10
-        },
-
-        hasFirstEllipsis() {
-          return this.pagination.currentPage >= 4 && this.pagination.totalPages >= 10
-        },
-
-        hasLastEllipsis() {
-          return this.pagination.currentPage <= this.pagination.totalPages - 3 && this.pagination.totalPages >= 10
-        },
-
-        shouldShowPagination() {
-          if (this.pagination.totalPages === undefined) {
-            return false
-          }
-          if (this.pagination.count === 0) {
-            return false;
-          }
-          return this.pagination.totalPages > 1
-        }
-    },
-
-    methods: {
-      isActive(page) {
-        const currentPage = this.pagination.currentPage || 1
-
-        return currentPage === page
-      },
-
-      pageClicked(page) {
-        if (page === '...' ||
+    pageClicked (page) {
+      if (page === '...' ||
             page === this.pagination.currentPage ||
             page > this.pagination.totalPages ||
             page < 1) {
-            return
-        }
-
-        this.$emit('pageChange', page)
-      },
-
-      pageLinks() {
-        const pages = []
-
-        let left = 2
-        let right = this.pagination.totalPages - 1
-
-        if (this.pagination.totalPages >= 10) {
-            left = Math.max(1, this.pagination.currentPage - 2)
-            right = Math.min(this.pagination.currentPage + 2, this.pagination.totalPages)
-        }
-
-        for (let i = left; i <= right; i++) {
-            pages.push(i)
-        }
-
-        return pages
+        return
       }
+
+      this.$emit('pageChange', page)
+    },
+
+    pageLinks () {
+      const pages = []
+
+      let left = 2
+      let right = this.pagination.totalPages - 1
+
+      if (this.pagination.totalPages >= 10) {
+        left = Math.max(1, this.pagination.currentPage - 2)
+        right = Math.min(this.pagination.currentPage + 2, this.pagination.totalPages)
+      }
+
+      for (let i = left; i <= right; i++) {
+        pages.push(i)
+      }
+
+      return pages
     }
   }
+}
 </script>

@@ -98,14 +98,14 @@ export default {
     localSettings: {}
   }),
 
-  created() {
+  created () {
     this.sort.fieldName = this.sortBy
     this.sort.order = this.sortOrder
 
     this.restoreState()
   },
 
-  async mounted() {
+  async mounted () {
     const columnComponents = this.$slots.default
       .filter(column => column.componentInstance)
       .map(column => column.componentInstance)
@@ -124,7 +124,7 @@ export default {
   },
 
   watch: {
-    filter() {
+    filter () {
       if (!this.usesLocalData) {
         this.mapDataToRows()
       }
@@ -132,7 +132,7 @@ export default {
       this.saveState()
     },
 
-    data() {
+    data () {
       if (this.usesLocalData) {
         this.mapDataToRows()
       }
@@ -140,23 +140,23 @@ export default {
   },
 
   computed: {
-    fullTableClass() {
+    fullTableClass () {
       return classList('table-component__table', this.tableClass)
     },
 
-    fullTableHeadClass() {
+    fullTableHeadClass () {
       return classList('table-component__table__head', this.theadClass)
     },
 
-    fullTableBodyClass() {
+    fullTableBodyClass () {
       return classList('table-component__table__body', this.tbodyClass)
     },
 
-    fullFilterInputClass() {
+    fullFilterInputClass () {
       return classList('table-component__filter__field', this.filterInputClass)
     },
 
-    ariaCaption() {
+    ariaCaption () {
       if (this.sort.fieldName === '') {
         return 'Table not sorted'
       }
@@ -167,14 +167,14 @@ export default {
       )
     },
 
-    usesLocalData() {
+    usesLocalData () {
       return Array.isArray(this.data)
     },
 
-    displayedRows() {
+    displayedRows () {
       let rows = this.sortedRows
       const hasFilterableColumns = this.columns.filter(column => column.isFilterable()).length
-      
+
       if (this.showFilter && hasFilterableColumns) {
         rows = this.sortedRows.filter(row => row.passesFilter(this.filter))
       }
@@ -189,7 +189,7 @@ export default {
       return rows
     },
 
-    sortedRows() {
+    sortedRows () {
       if (!this.usesLocalData || this.sortingExternal === true) {
         this.$emit('sort', {fieldName: this.sort.fieldName, order: this.sort.order})
         return this.rows
@@ -208,33 +208,30 @@ export default {
       if (!sortColumn) {
         return this.rows
       }
-
-      return this.rows.sort(
-        sortColumn.getSortPredicate(this.sort.order, this.columns)
-      )
+      // eslint-disable-next-line
+      const rows = this.rows.sort(sortColumn.getSortPredicate(this.sort.order, this.columns))
+      return rows
     },
 
-    filterableColumnExists() {
+    filterableColumnExists () {
       return this.columns.filter(c => c.isFilterable()).length > 0
     },
 
-    storageKey() {
+    storageKey () {
       return this.cacheKey
         ? `vue-table-component.${this.cacheKey}`
-        : `vue-table-component.${window.location.host}${
-            window.location.pathname
-          }${this.cacheKey}`
+        : `vue-table-component.${window.location.host}${window.location.pathname}${this.cacheKey}`
     }
   },
 
   methods: {
-    async pageChange(page) {
+    async pageChange (page) {
       this.pagination.currentPage = page
 
       await this.mapDataToRows()
     },
 
-    async mapDataToRows() {
+    async mapDataToRows () {
       const data = this.usesLocalData
         ? this.prepareLocalData()
         : await this.fetchServerData()
@@ -249,13 +246,13 @@ export default {
         .map(rowData => new Row(rowData, this.columns))
     },
 
-    prepareLocalData() {
+    prepareLocalData () {
       this.pagination = null
 
       return this.data
     },
 
-    async fetchServerData() {
+    async fetchServerData () {
       const page = (this.pagination && this.pagination.currentPage) || 1
 
       const response = await this.data({
@@ -269,11 +266,11 @@ export default {
       return response.data
     },
 
-    async refresh() {
+    async refresh () {
       await this.mapDataToRows()
     },
 
-    changeSorting(column) {
+    changeSorting (column) {
       if (this.sort.fieldName !== column.show) {
         this.sort.fieldName = column.show
         this.sort.order = 'asc'
@@ -288,11 +285,11 @@ export default {
       this.saveState()
     },
 
-    getColumn(columnName) {
+    getColumn (columnName) {
       return this.columns.find(column => column.show === columnName)
     },
 
-    saveState() {
+    saveState () {
       expiringStorage.set(
         this.storageKey,
         pick(this.$data, ['filter', 'sort']),
@@ -300,7 +297,7 @@ export default {
       )
     },
 
-    restoreState() {
+    restoreState () {
       const previousState = expiringStorage.get(this.storageKey)
 
       if (previousState === null) {
@@ -313,11 +310,11 @@ export default {
       this.saveState()
     },
 
-    emitRowClick(row) {
+    emitRowClick (row) {
       this.$emit('rowClick', row)
       this.$emit('row-click', row)
     },
-    emitRowVisible(row) {
+    emitRowVisible (row) {
       this.$emit('rowVisible', row)
       this.$emit('row-visible', row)
     }

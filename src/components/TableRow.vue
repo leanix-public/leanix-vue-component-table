@@ -7,26 +7,26 @@
 </template>
 
 <script>
-  import Vue from 'vue'
-  import TableCell from './TableCell';
-  import VueObserveVisibility from '../directives/observe-visibility/index'
-  Vue.use(VueObserveVisibility)
+import Vue from 'vue'
+import TableCell from './TableCell'
+import VueObserveVisibility from '../directives/observe-visibility/index'
+Vue.use(VueObserveVisibility)
 
-  export default {
-    props: ['columns', 'row'],
+export default {
+  props: ['columns', 'row'],
 
-    components: {
-      TableCell,
-    },
-    methods: {
-      visibilityChangedHandler(isVisible, entry, row) {
-        this.$emit('rowVisible', {row: row.data, isVisible})
-      }
-    },
-    computed: {
-      visibleColumns() {
-        return this.columns.filter(column => ! column.hidden);
-      },
+  components: {
+    TableCell
+  },
+  methods: {
+    visibilityChangedHandler (isVisible, entry, row) {
+      this.$emit('rowVisible', {row: row.data, isVisible})
+    }
+  },
+  computed: {
+    visibleColumns () {
+      return this.columns.filter(column => !column.hidden)
     }
   }
+}
 </script>

@@ -2,17 +2,27 @@
   "name": "leanix-vue-component-table",
   "version": "1.0.0",
   "description": "Reusable Table Component for VueJS",
-  "author": "Paulo dos Santos <paulo.santos@leanix.net>",
+  "author": {
+    "name": "Paulo dos Santos",
+    "email": "paulo.santos@leanix.net"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leanix-public/leanix-vue-component-table.git"
+  },
   "private": false,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "test": "npm run unit",
-    "lint": "eslint --ext .js,.vue src test/unit",
-    "build": "node build/build.js"
+    "lint": "eslint --fix --ext .js,.vue src test/unit",
+    "build": "node build/build.js",
+    "build:docs": "node build/build-docs.js",
+    "publish:docs": "node build/publish-pages.js"
   },
   "dependencies": {
+    "moment": "^2.21.0",
     "vue": "^2.5.2"
   },
   "devDependencies": {
@@ -57,6 +67,8 @@
     "rimraf": "^2.6.0",
     "semver": "^5.3.0",
     "shelljs": "^0.7.6",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
     "uglifyjs-webpack-plugin": "^1.1.1",
     "url-loader": "^0.5.8",
     "vue-jest": "^1.0.2",
