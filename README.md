@@ -17,8 +17,7 @@ Here's an example of how you can use it:
           { firstName: 'Ringo', lastName: 'Starr', instrument: 'Drums', birthday: '07/07/1940', songs: 2 },
      ]"
      sort-by="songs"
-     sort-order="asc"
->
+     sort-order="asc">
      <table-column show="firstName" label="First name"></table-column>
      <table-column show="lastName" label="Last name"></table-column>
      <table-column show="instrument" label="Instrument"></table-column>
@@ -33,7 +32,7 @@ Here's an example of how you can use it:
 ```
 
 ## Demo
-[You can find it here](https://leanix-public.github.io/leanix-vue-component-table/)
+[Here](https://leanix-public.github.io/leanix-vue-component-table/)
 
 ## Installation
 
