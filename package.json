@@ -19,7 +19,8 @@
     "lint": "eslint --fix --ext .js,.vue src test/unit",
     "build": "node build/build.js",
     "build:docs": "node build/build-docs.js",
-    "publish:docs": "node build/publish-pages.js"
+    "publish:docs": "node build/publish-pages.js",
+    "publish:npm": "npm publish"
   },
   "dependencies": {
     "moment": "^2.21.0",
