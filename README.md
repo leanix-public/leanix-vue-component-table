@@ -217,8 +217,7 @@ You can format values before they get displayed by using scoped slots. Here's a 
           { firstName: 'Paul', songs: 70 },
           { firstName: 'George', songs: 22 },
           { firstName: 'Ringo', songs: 2 },
-     ]"
->
+     ]">
 
      <table-column label="My custom column" :sortable="false" :filterable="false">
          <template slot-scope="row">
