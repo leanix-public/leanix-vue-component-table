@@ -309,7 +309,7 @@ Note: `rows` slot scope data includes more information gathered by the Table Com
 
 ## Changelog
 
-Please see [CHANGELOG](CHANGELOG) for more information what has changed recently.
+Please see [CHANGELOG](CHANGELOGnpm ) for more information what has changed recently.
 
 ## Contributing
 
