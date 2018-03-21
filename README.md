@@ -132,7 +132,7 @@ If you want to modify the built in text or classes you can pass settings globall
 You can use the [CSS](src/stylus/table-component.styl) as a starting point for your own styling.
 
 ```js
-import TableComponent from 'vue-table-component'
+import TableComponent from 'leanix-vue-component-table'
 
 TableComponent.settings({
     tableClass: '',
